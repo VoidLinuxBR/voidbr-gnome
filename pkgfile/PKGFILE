@@ -15,6 +15,10 @@ source=("git+${url}.git")
 md5sums=('SKIP')
 makedepends=()
 depends=(
+  voidbr-base-common
+  voidbr-gui-common
+  voidbr-xorg-common
+  voidbr-wayland-common
 	voidbr-change-gnome-wallpaper
 	voidbr-gnome-config
 	"bluez"                    # Pilha de protocolos Bluetooth
