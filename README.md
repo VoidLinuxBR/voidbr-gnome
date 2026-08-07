@@ -1,3 +1,3 @@
-# voidbr-pkgfile
+# voidbr-gnome
 
-Template for VoidBR pkgmake/pkgfile packages
+VoidBR GNOME Meta Package

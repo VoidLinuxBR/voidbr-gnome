@@ -1,12 +1,12 @@
 # Maintainer: Vilmar Catafesta <vcatafesta@gmail.com>
 
-pkgname=voidbr-pkgname
-pkgdesc="Package template for VoidLinuxBR"
+pkgname=voidbr-gnome
+pkgdesc="VoidBR GNOME Meta Package"
 pkgver=$(date +%Y%m%d)
 pkgrel=$(date +%H%M)
-provides=()               # "eu SOU o $pkgname pkg1, pra quem depender deles"
-replaces=()               # "remove o pkg1 pkg2 antigo automaticamente quando eu instalar"
-conflicts=()              # "nunca me deixe coexistir com o pkg1 pkg2 original"
+provides=()  # "eu SOU o $pkgname pkg1, pra quem depender deles"
+replaces=()  # "remove o pkg1 pkg2 antigo automaticamente quando eu instalar"
+conflicts=() # "nunca me deixe coexistir com o pkg1 pkg2 original"
 arch=('any')
 license=('MIT')
 #url="ssh://git@github.com/voidlinuxbr/${pkgname}"
@@ -14,24 +14,49 @@ url="https://github.com/voidlinuxbr/${pkgname}"
 source=("git+${url}.git")
 md5sums=('SKIP')
 makedepends=()
-depends=()
+depends=(
+	voidbr-change-gnome-wallpaper
+	voidbr-gnome-config
+	"bluez"                    # Pilha de protocolos Bluetooth
+	"cantarell-fonts"          # Fonte oficial da interface GNOME
+	"colord"                   # Gerenciador de perfis de cores
+	"extension-manager"        # App para gerenciar extensões sem navegador
+	"gdm"                      # Gerenciador de login (Display Manager)
+	"gnome"                    # Meta-pacote Core (Shell, Nautilus, Control Center)
+	"gnome-apps"               # Suite de aplicativos padrão (Calculadora, Mapas, etc.)
+	"gnome-backgrounds"        # Papéis de parede oficiais do GNOME
+	"gnome-bluetooth"          # Interface de controle do Bluetooth no GNOME
+	"gnome-browser-connector"  # Integração do navegador com extensões do Shell
+	"gnome-characters"         # Utilitário de mapa de caracteres e emojis
+	"gnome-connections"        # Cliente nativo para conexões remotas RDP/VNC
+	"gnome-disk-utility"       # Utilitário para gerenciamento de discos e partições
+	"gnome-keyring"            # Gerenciador de senhas, chaves SSH e GPG
+	"gnome-online-accounts"    # Configuração central de contas externas
+	"gnome-session"            # Gerenciador de sessão do GNOME
+	"gnome-shell-extensions"   # Extensões oficiais fornecidas pelo projeto GNOME
+	"gnome-system-monitor"     # Monitor de processos e recursos do sistema
+	"gnome-terminal"           # Emulador de terminal padrão do GNOME
+	"gnome-themes-extra"       # Temas extras para compatibilidade GTK2 e GTK3
+	"mime-types"               # Fornece o arquivo compartilhado /etc/mime.types
+	"papirus-icon-theme"       # Conjunto de ícones Papirus
+	"polkit"                   # Framework para definição de privilégios
+	"simple-scan"              # Utilitário de digitalização de documentos
+	"tracker3"                 # Motor de busca e indexação de arquivos
+	"tracker3-miners"          # Extratores de metadados para busca do Tracker
+	"xdg-desktop-portal-gnome" # Integração de interface e permissões para Wayland
+	"xdg-user-dirs-gtk"        # Gerenciamento automático das pastas padrão de usuário
+	"accountsservice"          # D-Bus interfaces for querying and manipulating user account information
+)
 backup=()
-
-# Automatically detect and use the correct install file
-if [ -e "${pkgname}.install" ]; then
-	install=${pkgname}.install
-elif [ -e "pkgbuild.install" ]; then
-	install=pkgfile.install
-fi
 
 package() {
 	# Verify default folder
-  if [ -d "${srcdir}/${pkgname}/${pkgname}" ]; then
+	if [ -d "${srcdir}/${pkgname}/${pkgname}" ]; then
 		InternalDir="${srcdir}/${pkgname}/${pkgname}"
-  elif [ -d "${srcdir}/${pkgname}" ]; then
+	elif [ -d "${srcdir}/${pkgname}" ]; then
 		InternalDir="${srcdir}/${pkgname}"
 	else
-    #local
+		#local
 		InternalDir="${WORKDIR}"
 	fi
 
