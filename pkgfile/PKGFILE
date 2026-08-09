@@ -15,14 +15,12 @@ source=("git+${url}.git")
 md5sums=('SKIP')
 makedepends=()
 depends=(
-  voidbr-base-common
-  voidbr-gui-common
-  voidbr-xorg-common
-  voidbr-wayland-common
+	voidbr-base-common
+	voidbr-xorg-common
+	voidbr-gui-common
+	voidbr-wayland-common
 	voidbr-change-gnome-wallpaper
 	voidbr-gnome-config
-	"bluez"                    # Pilha de protocolos Bluetooth
-	"cantarell-fonts"          # Fonte oficial da interface GNOME
 	"colord"                   # Gerenciador de perfis de cores
 	"extension-manager"        # App para gerenciar extensões sem navegador
 	"gdm"                      # Gerenciador de login (Display Manager)
@@ -42,13 +40,11 @@ depends=(
 	"gnome-terminal"           # Emulador de terminal padrão do GNOME
 	"gnome-themes-extra"       # Temas extras para compatibilidade GTK2 e GTK3
 	"mime-types"               # Fornece o arquivo compartilhado /etc/mime.types
-	"papirus-icon-theme"       # Conjunto de ícones Papirus
 	"polkit"                   # Framework para definição de privilégios
 	"simple-scan"              # Utilitário de digitalização de documentos
 	"tracker3"                 # Motor de busca e indexação de arquivos
 	"tracker3-miners"          # Extratores de metadados para busca do Tracker
 	"xdg-desktop-portal-gnome" # Integração de interface e permissões para Wayland
-	"xdg-user-dirs-gtk"        # Gerenciamento automático das pastas padrão de usuário
 	"accountsservice"          # D-Bus interfaces for querying and manipulating user account information
 )
 backup=()
