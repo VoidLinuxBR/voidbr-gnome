@@ -15,37 +15,95 @@ source=("git+${url}.git")
 md5sums=('SKIP')
 makedepends=()
 depends=(
-	voidbr-base-common
-	voidbr-xorg-common
-	voidbr-gui-common
-	voidbr-wayland-common
-	voidbr-change-gnome-wallpaper
-	voidbr-gnome-config
-	"colord"                   # Gerenciador de perfis de cores
-	"extension-manager"        # App para gerenciar extensões sem navegador
-	"gdm"                      # Gerenciador de login (Display Manager)
-	"gnome"                    # Meta-pacote Core (Shell, Nautilus, Control Center)
-	"gnome-apps"               # Suite de aplicativos padrão (Calculadora, Mapas, etc.)
-	"gnome-backgrounds"        # Papéis de parede oficiais do GNOME
-	"gnome-bluetooth"          # Interface de controle do Bluetooth no GNOME
-	"gnome-browser-connector"  # Integração do navegador com extensões do Shell
-	"gnome-characters"         # Utilitário de mapa de caracteres e emojis
-	"gnome-connections"        # Cliente nativo para conexões remotas RDP/VNC
-	"gnome-disk-utility"       # Utilitário para gerenciamento de discos e partições
-	"gnome-keyring"            # Gerenciador de senhas, chaves SSH e GPG
-	"gnome-online-accounts"    # Configuração central de contas externas
-	"gnome-session"            # Gerenciador de sessão do GNOME
-	"gnome-shell-extensions"   # Extensões oficiais fornecidas pelo projeto GNOME
-	"gnome-system-monitor"     # Monitor de processos e recursos do sistema
-	"gnome-terminal"           # Emulador de terminal padrão do GNOME
-	"gnome-themes-extra"       # Temas extras para compatibilidade GTK2 e GTK3
-	"mime-types"               # Fornece o arquivo compartilhado /etc/mime.types
-	"polkit"                   # Framework para definição de privilégios
-	"simple-scan"              # Utilitário de digitalização de documentos
-	"tracker3"                 # Motor de busca e indexação de arquivos
-	"tracker3-miners"          # Extratores de metadados para busca do Tracker
-	"xdg-desktop-portal-gnome" # Integração de interface e permissões para Wayland
-	"accountsservice"          # D-Bus interfaces for querying and manipulating user account information
+	# --- Base do VoidBR ---
+	voidbr-base-common # Base: base-config, utils, NetworkManager, firmware etc.
+
+	# --- GNOME ---
+	gnome                         # Meta do Void: Shell, Nautilus, Control Center
+	gnome-apps                    # Suite de aplicativos padrão (Calculadora, Mapas etc.)
+	gnome-session                 # Gerenciador de sessão do GNOME
+	gnome-shell-extensions        # User Themes e status-icons (override do voidbr-gnome-config)
+	gnome-browser-connector       # Integração do navegador com extensões do Shell
+	extension-manager             # Favorito na barra; gerencia extensões sem navegador
+	gnome-terminal                # Terminal padrão (favorito org.gnome.Terminal.desktop)
+	gnome-system-monitor          # Monitor de processos e recursos
+	gnome-disk-utility            # Discos e partições
+	gnome-characters              # Mapa de caracteres e emojis
+	gnome-connections             # Cliente RDP/VNC
+	gnome-online-accounts         # Contas externas
+	gnome-bluetooth               # Bluetooth nas Configurações e no Shell
+	gnome-themes-extra            # Compatibilidade GTK2/GTK3
+	gnome-backgrounds             # Papéis de parede oficiais do GNOME
+	simple-scan                   # Digitalização de documentos
+	tracker3                      # Busca e indexação de arquivos
+	tracker3-miners               # Extratores de metadados do Tracker
+	colord                        # Perfis de cores
+	mime-types                    # /etc/mime.types
+	accountsservice               # Contas de usuário via D-Bus (Configurações > Usuários)
+	voidbr-gnome-config           # Skel e padrões (gschema override, tema do Shell em ilhas)
+	voidbr-change-gnome-wallpaper # Slideshow em /usr/share/backgrounds/voidbr
+
+	# --- Visual ---
+	voidbr-tokyo-theme     # Tokyonight-Dark-Theme, Tokyonight-Dark-Icons (GTK e Shell)
+	voidbr-wallpapers      # Papel de parede (voidbr-wallpaper.avif)
+	adwaita-icon-theme     # Ícones de reserva (os Tokyonight herdam de "gnome")
+	libavif                # Abre o .avif do papel de parede (gdk-pixbuf)
+	libheif-pixbuf-loader  # Loader AVIF/HEIF do gdk-pixbuf
+	cantarell-fonts        # Fonte da interface (Cantarell 11)
+	dejavu-fonts-ttf       # Fonte monoespaçada (DejaVu Sans Mono 10)
+	noto-fonts-ttf
+	noto-fonts-emoji
+	nerd-fonts-symbols-ttf
+
+	# --- Sessão e login ---
+	sddm               # Login (o post_install ativa o sddm)
+	voidbr-sddm-themes # Temas do sddm VoidBR
+	dbus-elogind
+	polkit-elogind
+	gnome-keyring      # Senhas (navegador, Wi-Fi)
+
+	# --- X11 (sessão "GNOME on Xorg") ---
+	xorg
+	mesa-dri
+	mesa-nouveau-dri
+	mesa-vaapi
+
+	# --- Wayland ---
+	xorg-server-xwayland     # Apps X11 no Wayland
+	qt5-wayland
+	qt6-wayland
+	wl-clipboard
+	xdg-desktop-portal
+	xdg-desktop-portal-gnome # Captura de tela, seletor de arquivos, color-scheme
+	xdg-desktop-portal-gtk
+
+	# --- Áudio (PipeWire) ---
+	pipewire
+	wireplumber
+	alsa-pipewire
+	libjack-pipewire
+	libspa-bluetooth # Áudio Bluetooth
+	alsa-utils
+
+	# --- Rede, Bluetooth e discos ---
+	bluez
+	gvfs    # Lixeira (trash:///) e Rede no Nautilus
+	gvfs-mtp
+	gvfs-smb
+	gvfs-afc
+	udisks2 # Montar pendrives
+
+	# --- Apps ---
+	firefox            # Navegador padrão (mimeapps.list) e favorito na barra
+	firefox-i18n-pt-BR
+	octoxbps
+	gparted
+	mpv
+	chili-iso2usb
+	voidbr-iso-writer
+	voidbr-webapps
+	xdg-utils
+	xdg-user-dirs
 )
 backup=()
 
@@ -94,12 +152,77 @@ post_install() {
 
 	if [ -z "${VOIDBR_INSTALLER:-}" ]; then
 		if [ -n "$user" ]; then
-			log "Aplicando configuracoes para $user"
-			/usr/local/bin/voidbr-copy-skel-inc --user "$user" --force --quiet || true
+			local resp="t" prompt
+
+			# Instalação nova: copia tudo (o que for diferente vai para backup).
+			# Atualização: pergunta, se houver terminal. Sem terminal, ou sem
+			# resposta em 30s, não altera nada do que o usuário já tem.
+			if [ "${update:-}" = "yes" ]; then
+				resp=""
+				# O xbps roda este script com /bin/sh (dash), que não tem
+				# "read -t/-p"; a pergunta com tempo limite vai pelo bash,
+				# lendo direto do terminal. Prefixo no mesmo formato do log().
+				if [ -t 1 ] && { : </dev/tty; } 2>/dev/null; then
+					# Pergunta em branco, teclas em amarelo (destaca das linhas do log)
+					prompt=$(printf '%s[*]%s %s - %s' "$CYAN" "${BLACK}$pkgname" "${RST}" "${WHITE}")
+					prompt="${prompt}Configurações de $user: aplicar [${YELLOW}t${WHITE}]odas (com backup) ou só as [${YELLOW}N${WHITE}]ovas? ${RESET}"
+					resp=$(bash -c 'read -r -t 30 -p "$1" r </dev/tty >&2 || echo >&2; printf "%s" "$r"' _ "$prompt") || true
+				fi
+			fi
+
+			case "$resp" in
+				t | T | todas | Todas | TODAS)
+					# Substitui o que for diferente, com backup em ~/.voidbr-skel-backup-*
+					log "Aplicando configuracoes padrao para $user"
+					/usr/local/bin/voidbr-copy-skel-inc --user "$user" --force --quiet || true
+					;;
+				*)
+					# Copia só o que ainda não existe no HOME
+					log "Aplicando novas configuracoes para $user"
+					/usr/local/bin/voidbr-copy-skel-inc --user "$user" --only-new --quiet || true
+					;;
+			esac
 		fi
 
-		log "Ativando serviços"
-		/usr/local/bin/vservice add sddm --quiet || true
+		# Login manager:
+		#   instalação nova: ativa o sddm se nenhum login manager estiver ativo
+		#   atualização: se nenhum estiver ativo, pergunta (sem terminal ou sem
+		#   resposta em 30s, não ativa). Quem responder "n" não é perguntado de novo.
+		local dm dm_ativo="" ativar_dm="s" sem_dm="/var/lib/voidbr/sem-login-manager"
+		for dm in sddm gdm lightdm lxdm slim xdm greetd ly emptty nodm entrance lemurs; do
+			if [ -e "/var/service/$dm" ] || [ -L "/var/service/$dm" ]; then
+				dm_ativo="$dm"
+				break
+			fi
+		done
+
+		if [ -n "$dm_ativo" ]; then
+			[ "$dm_ativo" != "sddm" ] && log "Login manager '$dm_ativo' ja ativo, sddm nao sera ativado"
+			ativar_dm=""
+		elif [ "${update:-}" = "yes" ]; then
+			ativar_dm=""
+			if [ ! -e "$sem_dm" ] && [ -t 1 ] && { : </dev/tty; } 2>/dev/null; then
+				prompt=$(printf '%s[*]%s %s - %s' "$CYAN" "${BLACK}$pkgname" "${RST}" "${WHITE}")
+				prompt="${prompt}Nenhum login manager ativo: ativar o [${YELLOW}s${WHITE}]ddm ou [${YELLOW}N${WHITE}]ão? ${RESET}"
+				ativar_dm=$(bash -c 'read -r -t 30 -p "$1" r </dev/tty >&2 || echo >&2; printf "%s" "$r"' _ "$prompt") || true
+				case "$ativar_dm" in
+					s | S | sim | Sim | SIM | sddm) ativar_dm="s" ;;
+					n | N | nao | não | Nao | Não | NAO | NÃO)
+						# Escolha explícita: não perguntar nos próximos upgrades
+						mkdir -p "${sem_dm%/*}" && : >"$sem_dm"
+						log "Login manager nao sera ativado (para ativar: vservice add sddm)"
+						ativar_dm=""
+						;;
+					*) ativar_dm="" ;;
+				esac
+			fi
+		fi
+
+		if [ "$ativar_dm" = "s" ]; then
+			rm -f "$sem_dm"
+			log "Ativando serviços"
+			/usr/local/bin/vservice add sddm --quiet || true
+		fi
 	fi
 
 	log "${YELLOW}Instalação completa. Reinicie o sistema...${RESET}"
