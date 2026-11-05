@@ -41,6 +41,7 @@ depends=(
 	mime-types                    # /etc/mime.types
 	accountsservice               # Contas de usuário via D-Bus (Configurações > Usuários)
 	voidbr-gnome-config           # Skel e padrões (gschema override, tema do Shell em ilhas)
+	voidbr-gnome-shell-extension-dash-to-panel # Barra única embaixo, em ilhas
 	voidbr-change-gnome-wallpaper # Slideshow em /usr/share/backgrounds/voidbr
 
 	# --- Visual ---
