@@ -26,6 +26,7 @@ depends=(
 	gnome-browser-connector       # Integração do navegador com extensões do Shell
 	extension-manager             # Favorito na barra; gerencia extensões sem navegador
 	gnome-terminal                # Terminal padrão (favorito org.gnome.Terminal.desktop)
+	xfce4-terminal                # Terminal alternativo
 	gnome-system-monitor          # Monitor de processos e recursos
 	gnome-disk-utility            # Discos e partições
 	gnome-characters              # Mapa de caracteres e emojis
