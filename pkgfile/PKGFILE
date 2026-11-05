@@ -44,6 +44,8 @@ depends=(
 	voidbr-gnome-config           # Skel e padrões (gschema override, tema do Shell em ilhas)
 	voidbr-gnome-shell-extension-dash-to-panel # Barra única embaixo, em ilhas
 	voidbr-change-gnome-wallpaper # Slideshow em /usr/share/backgrounds/voidbr
+	python3-gobject               # voidbr-gnome-tweaks (GTK4)
+	gtk4                          # voidbr-gnome-tweaks
 
 	# --- Visual ---
 	voidbr-tokyo-theme     # Tokyonight-Dark-Theme, Tokyonight-Dark-Icons (GTK e Shell)
