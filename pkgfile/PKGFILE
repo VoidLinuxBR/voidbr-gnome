@@ -189,7 +189,8 @@ post_install() {
 			esac
 		fi
 
-		# Login manager: se já tiver um ativo, não mexe; se não tiver, ativa o sddm
+		# Login manager: ativo = tem link em /var/service (instalado só em /etc/sv não conta).
+		# Se já tiver um ativo, não mexe; se não tiver, ativa o sddm.
 		local dm ativar_dm=true
 		for dm in sddm gdm lightdm lxdm slim xdm greetd ly emptty nodm entrance lemurs; do
 			if [ -x "/var/service/$dm/run" ]; then
