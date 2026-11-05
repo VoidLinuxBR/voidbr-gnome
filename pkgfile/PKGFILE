@@ -17,6 +17,7 @@ makedepends=()
 depends=(
 	# --- Base do VoidBR ---
 	voidbr-base-common # Base: base-config, utils, NetworkManager, firmware etc.
+	voidbr-gui-common  # Apps e login manager do voidbr-gnome antigo (quem atualiza não perde nada)
 
 	# --- GNOME ---
 	gnome                         # Meta do Void: Shell, Nautilus, Control Center
@@ -188,43 +189,18 @@ post_install() {
 			esac
 		fi
 
-		# Login manager:
-		#   instalação nova: ativa o sddm se nenhum login manager estiver ativo
-		#   atualização: se nenhum estiver ativo, pergunta (sem terminal ou sem
-		#   resposta em 30s, não ativa). Quem responder "n" não é perguntado de novo.
-		local dm dm_ativo="" ativar_dm="s" sem_dm="/var/lib/voidbr/sem-login-manager"
+		# Login manager: se já tiver um ativo, não mexe; se não tiver, ativa o sddm
+		local dm ativar_dm=true
 		for dm in sddm gdm lightdm lxdm slim xdm greetd ly emptty nodm entrance lemurs; do
-			if [ -e "/var/service/$dm" ] || [ -L "/var/service/$dm" ]; then
-				dm_ativo="$dm"
+			if [ -x "/var/service/$dm/run" ]; then
+				log "Login manager '$dm' ja ativo"
+				ativar_dm=false
 				break
 			fi
 		done
 
-		if [ -n "$dm_ativo" ]; then
-			[ "$dm_ativo" != "sddm" ] && log "Login manager '$dm_ativo' ja ativo, sddm nao sera ativado"
-			ativar_dm=""
-		elif [ "${update:-}" = "yes" ]; then
-			ativar_dm=""
-			if [ ! -e "$sem_dm" ] && [ -t 1 ] && { : </dev/tty; } 2>/dev/null; then
-				prompt=$(printf '%s[*]%s %s - %s' "$CYAN" "${BLACK}$pkgname" "${RST}" "${WHITE}")
-				prompt="${prompt}Nenhum login manager ativo: ativar o [${YELLOW}s${WHITE}]ddm ou [${YELLOW}N${WHITE}]ão? ${RESET}"
-				ativar_dm=$(bash -c 'read -r -t 30 -p "$1" r </dev/tty >&2 || echo >&2; printf "%s" "$r"' _ "$prompt") || true
-				case "$ativar_dm" in
-					s | S | sim | Sim | SIM | sddm) ativar_dm="s" ;;
-					n | N | nao | não | Nao | Não | NAO | NÃO)
-						# Escolha explícita: não perguntar nos próximos upgrades
-						mkdir -p "${sem_dm%/*}" && : >"$sem_dm"
-						log "Login manager nao sera ativado (para ativar: vservice add sddm)"
-						ativar_dm=""
-						;;
-					*) ativar_dm="" ;;
-				esac
-			fi
-		fi
-
-		if [ "$ativar_dm" = "s" ]; then
-			rm -f "$sem_dm"
-			log "Ativando serviços"
+		if $ativar_dm; then
+			log "Ativando o sddm"
 			/usr/local/bin/vservice add sddm --quiet || true
 		fi
 	fi
