@@ -107,6 +107,7 @@ depends=(
 	chili-iso2usb
 	voidbr-iso-writer
 	voidbr-webapps
+	voidbr-ai         # Assistente de IA do VoidBR (favorito na barra)
 	xdg-utils
 	xdg-user-dirs
 )
